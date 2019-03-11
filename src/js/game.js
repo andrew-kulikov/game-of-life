@@ -81,18 +81,13 @@ function update() {
   function _countNeighbours(x, y) {
     let amount = 0;
 
-    function _isAlive(x, y) {
-      return cells[x] && cells[x][y];
-    }
-
-    if (_isAlive(x - 1, y - 1)) amount++;
-    if (_isAlive(x, y - 1)) amount++;
-    if (_isAlive(x + 1, y - 1)) amount++;
-    if (_isAlive(x - 1, y)) amount++;
-    if (_isAlive(x + 1, y)) amount++;
-    if (_isAlive(x - 1, y + 1)) amount++;
-    if (_isAlive(x, y + 1)) amount++;
-    if (_isAlive(x + 1, y + 1)) amount++;
+    const _isAlive = (x, y) => cells[x] && cells[x][y];
+    const offsets = [-1, 0, 1];
+    
+    offsets.forEach(offsetX =>
+      offsets.forEach(offsetY => (amount += _isAlive(x + offsetX, y + offsetY)))
+    );
+    amount -= _isAlive(x, y);
 
     return amount;
   }
