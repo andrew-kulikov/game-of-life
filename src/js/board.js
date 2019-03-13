@@ -1,23 +1,26 @@
-let canvas = document.getElementById("myCanvas").getContext("2d");
+let cells = [];
+const cellsCount = 64;
+let name = 0;
 
-canvas.strokeStyle = "#e1e1e1";
-canvas.fillStyle = "cadetblue";
+class GameOfLifePainter {
+  constructor() {
+    this.name = Math.random();
+    console.log(name)
 
-class GameOfLife {
-  constructor(cellsCount, canvasSize, canvas) {
-    this.cellsCount = cellsCount;
-    this.canvasSize = canvasSize;
-    this.canvas = canvas;
-    this.cells = [];
+    if (!name) name = this.name;
+
+    console.log('name', name)
+    this.canvasSize = 512;
 
     this.init();
   }
 
   init() {
-    for (let i = 0; i < this.cellsCount; i++) {
-      this.cells[i] = [];
-      for (let j = 0; j < this.cellsCount; j++) {
-        this.cells[i][j] = 0;
+    console.log("init");
+    for (let i = 0; i < cellsCount; i++) {
+      cells[i] = [];
+      for (let j = 0; j < cellsCount; j++) {
+        cells[i][j] = 0;
       }
     }
 
@@ -75,14 +78,11 @@ class GameOfLife {
       [60, 51],
       [61, 51],
       [62, 51]
-    ].forEach(point => (this.cells[point[0]][point[1]] = 1));
-
-    this.update();
+    ].forEach(point => (cells[point[0]][point[1]] = 1));
   }
 
   update() {
     let result = [];
-    const cells = this.cells;
 
     function _countNeighbours(x, y) {
       let amount = 0;
@@ -100,7 +100,7 @@ class GameOfLife {
       return amount;
     }
 
-    this.cells.forEach((row, x) => {
+    cells.forEach((row, x) => {
       result[x] = [];
       row.forEach((cell, y) => {
         let alive = 0,
@@ -116,32 +116,31 @@ class GameOfLife {
       });
     });
 
-    this.cells = result;
-
-    this.draw();
+    cells = result;
   }
 
-  draw() {
-    let canvas = this.canvas;
-    const cellSize = this.canvasSize / this.cellsCount;
+  paint(ctx, geom, properties) {
+    console.log('asdasdasdasd', this.name, name)
+    if (name !== this.name) return;
+    this.update();
+    console.log(this.name);
+    const cellSize = geom.height / cellsCount;
+    ctx.strokeStyle = "#e1e1e1";
+    ctx.fillStyle = "cadetblue";
 
-    canvas.clearRect(0, 0, this.canvasSize, this.canvasSize);
-    this.cells.forEach((row, x) => {
+    ctx.clearRect(0, 0, geom.height, geom.width);
+    cells.forEach((row, x) => {
       row.forEach((cell, y) => {
-        canvas.beginPath();
-        canvas.rect(x * cellSize, y * cellSize, cellSize, cellSize);
+        ctx.beginPath();
+        ctx.rect(x * cellSize, y * cellSize, cellSize, cellSize);
         if (cell) {
-          canvas.fill();
+          ctx.fill();
         } else {
-          canvas.stroke();
+          ctx.stroke();
         }
       });
     });
-
-    //I love js
-    setTimeout(this.update.bind(this), 10);
-    //window.requestAnimationFrame(update);
   }
 }
 
-const game = new GameOfLife(64, 512, canvas);
+registerPaint("board", GameOfLifePainter);

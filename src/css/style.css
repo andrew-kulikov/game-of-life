@@ -7,3 +7,9 @@ main {
     display: flex;
     justify-content: center;
 }
+
+#game {
+    height: 512px;
+    width: 512px;
+    
+}
