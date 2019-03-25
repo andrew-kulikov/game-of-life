@@ -1,3 +1,9 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
 header {
     display: flex;
     justify-content: center;
@@ -5,11 +11,48 @@ header {
 
 main {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-header {
+    font-family: 'Indie Flower';
+}
+
+.controls {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-family: 'Indie Flower';
+    font-weight: bold;
+}
+
+input {
+    border: 0px;
+    border-bottom: 1.5px solid grey;
+    outline: none;
+}
+
+input:focus {
+    border-bottom-color: brown;
+    outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    display: none;
 }
 
 #game {
     height: 512px;
     width: 512px;
-    
+    margin: 20px;
 }

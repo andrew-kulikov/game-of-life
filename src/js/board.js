@@ -5,11 +5,11 @@ let name = 0;
 class GameOfLifePainter {
   constructor() {
     this.name = Math.random();
-    console.log(name)
+    console.log(name);
 
     if (!name) name = this.name;
 
-    console.log('name', name)
+    console.log("name", name);
     this.canvasSize = 512;
 
     this.init();
@@ -24,8 +24,8 @@ class GameOfLifePainter {
       }
     }
 
-    [
-      // Gosper glider gun
+    // Gosper glider gun
+    const coordinates = [
       [1, 5],
       [1, 6],
       [2, 5],
@@ -63,9 +63,6 @@ class GameOfLifePainter {
       [36, 3],
       [36, 4],
 
-      // Random cells
-      // If you wait enough time these will eventually take part
-      // in destroying the glider gun, and the simulation will be in a "static" state.
       [60, 47],
       [61, 47],
       [62, 47],
@@ -78,7 +75,8 @@ class GameOfLifePainter {
       [60, 51],
       [61, 51],
       [62, 51]
-    ].forEach(point => (cells[point[0]][point[1]] = 1));
+    ];
+    coordinates.forEach(point => (cells[point[0]][point[1]] = 1));
   }
 
   update() {
@@ -120,10 +118,9 @@ class GameOfLifePainter {
   }
 
   paint(ctx, geom, properties) {
-    console.log('asdasdasdasd', this.name, name)
+    console.log("asdasdasdasd", this.name, name);
     if (name !== this.name) return;
     this.update();
-    console.log(this.name);
     const cellSize = geom.height / cellsCount;
     ctx.strokeStyle = "#e1e1e1";
     ctx.fillStyle = "cadetblue";
