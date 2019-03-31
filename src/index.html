@@ -119,11 +119,11 @@
           return coordinates;
         };
 
-        let cells = getCoordinatesMatrix(init());
+        let cellsPositions = init();
+        let cells = getCoordinatesMatrix(cellsPositions);
 
-        game.style.cssText = "--cells: " + cells.join(" ");
+        game.style.cssText = "--cells: " + cellsPositions.join(" ");
 
-        
         const update = () => {
           function _countNeighbours(x, y) {
             let amount = 0;
@@ -141,6 +141,7 @@
             return amount;
           }
           let result = [];
+          cellsPositions = [];
           cells.forEach((row, x) => {
             result[x] = [];
             row.forEach((cell, y) => {
@@ -151,16 +152,15 @@
               else alive = count === 3;
 
               result[x][y] = alive ? 1 : 0;
+              if (result[x][y]) cellsPositions.push([x, y]);
             });
           });
 
-          //console.log(result);
           cells = result;
-
-          //console.log(cells);
           result = [];
-          game.style.cssText = "--cells: " + cells.join(" ");
-          setTimeout(() => window.requestAnimationFrame(update), 70);
+
+          game.style.cssText = "--cells: " + cellsPositions.join(" ");
+          setTimeout(() => window.requestAnimationFrame(update), 100);
         };
 
         window.addEventListener("keydown", e => {
@@ -168,8 +168,6 @@
             update();
           }
         });
-
-        //requestAnimationFrame(request, game);
       });
     </script>
   </body>

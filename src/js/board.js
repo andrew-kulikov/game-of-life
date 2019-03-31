@@ -3,8 +3,6 @@ class GameOfLifePainter {
     return ["--cells"];
   }
 
-  
-
   update(cells) {
     let result = [];
 
@@ -54,24 +52,24 @@ class GameOfLifePainter {
 
     //TODO: move to props
     const cellsCount = 64;
-    //return;
-    //this.update();
+
     const cellHeight = geom.height / cellsCount;
     const cellWidth = geom.width / cellsCount;
     ctx.strokeStyle = "#e1e1e1";
     ctx.fillStyle = "cadetblue";
 
     ctx.clearRect(0, 0, geom.height, geom.width);
-    cells.forEach((row, x) => {
-      row.forEach((cell, y) => {
+    for (var i = 0; i < 64; i++) {
+      for (var j = 0; j < 64; j++) {
         ctx.beginPath();
-        ctx.rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-        if (cell) {
-          ctx.fill();
-        } else {
-          ctx.stroke();
-        }
-      });
+        ctx.rect(i * cellWidth, j * cellHeight, cellWidth, cellHeight);
+
+        ctx.stroke();
+      }
+    }
+    cells.forEach(pos => {
+      ctx.rect(pos[0] * cellWidth, pos[1] * cellHeight, cellWidth, cellHeight);
+      ctx.fill();
     });
   }
 }
