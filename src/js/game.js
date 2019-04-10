@@ -2,6 +2,7 @@ let game = document.getElementById("game");
 CSS.paintWorklet.addModule("js/board.js");
 
 let frame = 1;
+const cellsCount = 15;
 
 const coordinates = [
   [1, 5],
@@ -53,7 +54,7 @@ const coordinates = [
   [60, 51],
   [61, 51],
   [62, 51]
-];
+].filter(point => point[0] < cellsCount && point[1] < cellsCount);
 
 const update = () => {
   function _countNeighbours(x, y) {
@@ -89,15 +90,14 @@ const update = () => {
   cells = result;
   result = [];
 
-  game.style.cssText = "--cells: " + cellsPositions.join(" ");
-  setTimeout(() => {
-    if (frame) frame = window.requestAnimationFrame(update);
-  }, 100);
+  game.style.cssText = `--cells: ${cellsPositions.join(" ")}; --cells-count: ${cellsCount}`;
+  requestAnimationFrame(() => {
+    frame && update();
+  });
 };
 
 const getCoordinatesMatrix = positions => {
   const cells = [];
-  const cellsCount = 64;
   for (let i = 0; i < cellsCount; i++) {
     cells[i] = [];
     for (let j = 0; j < cellsCount; j++) {
@@ -112,7 +112,7 @@ const getCoordinatesMatrix = positions => {
 let cellsPositions = coordinates;
 let cells = getCoordinatesMatrix(cellsPositions);
 
-game.style.cssText = "--cells: " + cellsPositions.join(" ");
+game.style.cssText = `--cells: ${cellsPositions.join(" ")}; --cells-count: ${cellsCount}`;
 
 window.addEventListener("keydown", e => {
   if (e.which == 96) {

@@ -1,59 +1,73 @@
 html,
 body {
-    height: 100%;
-    margin: 0;
+  height: 100%;
+  margin: 0;
 }
 
 header {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .main-header {
-    font-family: 'Indie Flower';
+  font-family: "Indie Flower";
 }
 
 .controls {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .input-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-    font-family: 'Indie Flower';
-    font-weight: bold;
+  font-family: "Indie Flower";
+  font-weight: bold;
 }
 
 input {
-    border: 0px;
-    border-bottom: 1.5px solid grey;
-    outline: none;
+  border: 0px;
+  border-bottom: 1.5px solid grey;
+  outline: none;
 }
 
 input:focus {
-    border-bottom-color: brown;
-    outline: none;
+  border-bottom-color: brown;
+  outline: none;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    display: none;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  display: none;
 }
 
 #game {
-    height: 512px;
-    width: 512px;
-    margin: 20px;
-    background: paint(board);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  /*width: 70%;*/
+  margin: 20px;
+  background: paint(board);
+}
+
+.container {
+  width: 60%;
+  padding-top: 60%; /* 1:1 Aspect Ratio */
+  position: relative; /* If you want text inside of it */
+}
+
+/* If you want text inside of the container */
+.text {
 }
